@@ -5,10 +5,6 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static com.pluralsight.HomeScreen.homeScreen;
-import static com.pluralsight.LedgerScreen.ledgerScreen;
-import static com.pluralsight.ReportsScreen.reportsScreen;
-
 public class Main {
 
     // This list stores all transactions loaded from the CSV file //
@@ -18,13 +14,11 @@ public class Main {
     // Scanner is used to get user input from the keyboard //
     static Scanner scanner = new Scanner(System.in);
 
-    static void main() {
+    public static void main(String[] args) {
 
         // Load transactions from the file into memory //
         loadTransactions();
-        homeScreen();
-        ledgerScreen();
-        reportsScreen();
+        HomeScreen.homeScreen();
 
     }
 

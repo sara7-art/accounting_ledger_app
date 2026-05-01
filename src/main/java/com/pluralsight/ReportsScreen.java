@@ -1,5 +1,5 @@
 package com.pluralsight;
-import static com.pluralsight.Main.*;
+
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -18,7 +18,6 @@ public class ReportsScreen {
             System.out.println("6) Custom Search");
             System.out.println("0) Back");
 
-            Scanner scanner = new Scanner(System.in);
             String choice = scanner.nextLine().trim();
 
             switch (choice) {
@@ -50,11 +49,11 @@ public class ReportsScreen {
 
     public static void monthToDate(){
         LocalDate now = LocalDate.now();
-        for (Transaction transaction : transactions) {
-            LocalDate date = LocalDate.parse(transaction.getDate());
+        for (Transaction t : Main.transactions) {
+            LocalDate date = LocalDate.parse(t.getDate());
 
             if (date.getMonth() == now.getMonth() && date.getYear() == now.getYear()) {
-                System.out.println(transaction);
+                System.out.println(t);
             }
         }
     }
@@ -63,17 +62,17 @@ public class ReportsScreen {
 
         LocalDate now = LocalDate.now().minusMonths(1);
 
-        for (Transaction transaction : transactions) {
-            LocalDate date = LocalDate.parse(transaction.getDate());
+        for (Transaction t : Main.transactions) {
+            LocalDate date = LocalDate.parse(t.getDate());
 
             if (date.getMonth() == now.getMonth() && date.getYear() == now.getYear()) {
-                System.out.println(transaction);
+                System.out.println(t);
             }
         }
     }
     public static void yearToDate () {
         int year = LocalDate.now().getYear();
-        for (Transaction t : transactions) {
+        for (Transaction t : Main.transactions) {
             LocalDate date = LocalDate.parse(t.getDate());
 
             if (date.getYear() == year) {
@@ -83,7 +82,7 @@ public class ReportsScreen {
     }
     public static void previousYear() {
         int year = LocalDate.now().minusYears(1).getYear();
-        for (Transaction t : transactions) {
+        for (Transaction t : Main.transactions) {
             LocalDate date = LocalDate.parse(t.getDate());
 
             if (date.getYear() == year) {
@@ -95,7 +94,7 @@ public class ReportsScreen {
         System.out.print("Enter vendor name: ");
         String input = scanner.nextLine().toLowerCase();
 
-        for (Transaction t : transactions) {
+        for (Transaction t : Main.transactions) {
             if (t.getVendor().toLowerCase().contains(input)) {
                 System.out.println(t);
             }
@@ -134,7 +133,7 @@ public class ReportsScreen {
         Double amount = amountInput.isEmpty() ? null : Double.parseDouble(amountInput);
 
         // Loop through all transactions stored in the system
-        for (Transaction t : transactions) {
+        for (Transaction t : Main.transactions) {
 
             // Convert transaction date (stored as String) into LocalDate
             LocalDate date = LocalDate.parse(t.getDate());

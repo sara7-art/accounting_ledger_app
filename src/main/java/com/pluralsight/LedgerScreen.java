@@ -1,7 +1,7 @@
 package com.pluralsight;
-import static com.pluralsight.Main.*;
+
 import java.util.Scanner;
-import static com.pluralsight.ReportsScreen.reportsScreen;
+
 
 public class LedgerScreen {
 
@@ -30,7 +30,7 @@ public class LedgerScreen {
                     displayPayments();
                     break;
                 case "R":
-                    reportsScreen();
+                    ReportsScreen.reportsScreen();
                     break;
                 case "H":
                     return;
@@ -44,34 +44,37 @@ public class LedgerScreen {
 
     public static void displayAll() {
 
-        // All entries should show newest entries first
-        // loop goes through the list backwards so the newest transactions appear first in the ledger
-        for (int i = transactions.size() - 1; i >= 0; i--) {
-            System.out.println(transactions.get(i));
+        System.out.println("\n--- ALL TRANSACTIONS ---");
+
+        for (int i = Main.transactions.size() - 1; i >= 0; i--) {
+            System.out.println(Main.transactions.get(i));
         }
     }
 
     public static void displayDeposits() {
 
-        // Start from last index in the list
-        // Continue until we reach the FIRST item
-        // Move backwards (decrease index by 1 each time)
-        for (int i = transactions.size() - 1; i >= 0; i--) {
+        System.out.println("\n--- DEPOSITS ---");
 
-            // Get transaction at current index
-            if (transactions.get(i).getAmount() > 0) {
-                System.out.println(transactions.get(i));
+        for (int i = Main.transactions.size() - 1; i >= 0; i--) {
+
+            Transaction t = Main.transactions.get(i);
+
+            if (t.getAmount() > 0) {
+                System.out.println(t);
             }
         }
     }
 
     public static void displayPayments() {
 
-        for (int i = transactions.size() - 1; i >= 0; i--) { // loop goes through the list backwards so the newest transactions appear first in the ledger
+        System.out.println("\n--- PAYMENTS ---");
 
-            // Get transaction at current index
-            if (transactions.get(i).getAmount() < 0) {
-                System.out.println(transactions.get(i));
+        for (int i = Main.transactions.size() - 1; i >= 0; i--) {
+
+            Transaction t = Main.transactions.get(i);
+
+            if (t.getAmount() < 0) {
+                System.out.println(t);
             }
         }
     }
