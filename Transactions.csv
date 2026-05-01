@@ -10,3 +10,6 @@ date|time|description|vendor|amount
 2023-04-21|08:30:00|monthly salary|Employer|2200.00
 2023-04-22|18:15:00|restaurant dinner|Chipotle|-25.30
 2023-04-20|13:45:12|gas refill|Shell|60.0
+2023-04-20|13:45:12|gas refill|Shell|-60.0
+2023-04-16|09:05:10|office chair|IKEA|120.0
+2024-08-21|10:30:20|bicycle|BIKE REVOLUTIONARY|200.0

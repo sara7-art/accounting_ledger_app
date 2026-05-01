@@ -4,9 +4,10 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.util.Scanner;
 
-import static com.pluralsight.LedgerScreen.ledgerScreen; //In case user select ledger screen
-import static com.pluralsight.Main.transactions;
-import static com.pluralsight.Main.scanner;
+ //In case user select ledger screen
+import static com.pluralsight.LedgerScreen.ledgerScreen; // In case user select ledger screen
+import static com.pluralsight.Main.*;
+
 
 public class HomeScreen {
     public static void homeScreen() {
@@ -23,7 +24,6 @@ public class HomeScreen {
             // Read user input and convert to uppercase//
             String option = scanner.nextLine().trim().toUpperCase();
 
-            System.out.print("Select option: ");
             //user input option//
             //Decide what to do based on user input//
             switch (option) {
@@ -50,7 +50,7 @@ public class HomeScreen {
     //Helper method -create transaction
     public static Transaction createTransaction(Scanner scanner, boolean isDeposit) {
 
-        System.out.print("Enter date: ");
+        System.out.print("\nEnter date: ");
         String date = scanner.nextLine();
 
         System.out.print("Enter time: ");

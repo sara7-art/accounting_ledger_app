@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import static com.pluralsight.HomeScreen.homeScreen;
+import static com.pluralsight.LedgerScreen.ledgerScreen;
+import static com.pluralsight.ReportsScreen.reportsScreen;
 
 public class Main {
 
@@ -15,15 +17,15 @@ public class Main {
     // Scanner is used to get user input from the keyboard //
     static Scanner scanner = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    static void main() {
 
         // Load transactions from the file into memory //
         loadTransactions();
         homeScreen();
+        ledgerScreen();
+        reportsScreen();
 
     }
-
-             // Display the homeScreen of the App//
 
     public static void loadTransactions() {
 
@@ -43,8 +45,6 @@ public class Main {
 
                 // Split the line using | as separator //
                 String[] parts = line.split("\\|");
-
-                // Create a Transaction object from the split data
 
                 String date = parts[0];
                 String time = parts[1];

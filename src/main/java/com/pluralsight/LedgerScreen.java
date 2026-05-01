@@ -9,8 +9,9 @@ public class LedgerScreen {
     static Scanner scanner = new Scanner(System.in);
 
     public static void ledgerScreen() {
-        System.out.println("********** LEDGER *************");
-        System.out.println("\nA) All");
+        System.out.println();
+        System.out.println("\n***** LEDGER *****");
+        System.out.println("A) All");
         System.out.println("D) Deposits");
         System.out.println("P) Payments");
         System.out.println("R) Reports");
@@ -30,6 +31,7 @@ public class LedgerScreen {
                 break;
             case "R":
                 reportsScreen();
+                break;
             case "H":
                 return;
             default:

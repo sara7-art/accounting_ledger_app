@@ -104,19 +104,17 @@ public class ReportsScreen {
     }
     ////////////////////////////////CUSTOM SEARCH//////////////////////////////////////////////////////
     public static void customSearch () {
+        // user input (optional)
+        // This is used to search transactions
 
-        // Ask user for a start date filter (they can leave it blank)
-        // This is used to search transactions starting from a specific date
         System.out.print("Start Date (yyyy-mm-dd) or blank: ");
         String startInput = scanner.nextLine();
 
-        // Ask user for an end date filter (optional)
-        // This is used to search transactions up to a specific date
         System.out.print("End Date (yyyy-mm-dd) or blank: ");
         String endInput = scanner.nextLine();
 
         System.out.print("Description or blank: ");
-        String descInput = scanner.nextLine().toLowerCase();
+        String descInput = scanner.nextLine().toLowerCase(); // We convert it to lowercase so search is not case-sensitive
 
         System.out.print("Vendor or blank: ");
         String vendorInput = scanner.nextLine().toLowerCase();
@@ -142,17 +140,23 @@ public class ReportsScreen {
             // Convert transaction date (stored as String) into LocalDate
             LocalDate date = LocalDate.parse(t.getDate());
 
-            // If start date exists and transaction is before it -> skip this transaction
 
+            // If start date exists and transaction is before it -> skip this transaction
             if (startDate != null && date.isBefore(startDate)) continue;
+
+            // If end date exists and transaction is after it -> skip it
             if (endDate != null && date.isAfter(endDate)) continue;
 
+            // If description filter is not empty and transaction does NOT contain it -> skip
             if (!descInput.isEmpty() && !t.getDescription().toLowerCase().contains(descInput)) continue;
 
+            // If vendor filter is not empty and transaction does NOT match -> skip
             if (!vendorInput.isEmpty() && !t.getVendor().toLowerCase().contains(vendorInput)) continue;
 
+            // If amount filter exists and transaction amount is NOT equal -> skip
             if (amount != null && t.getAmount() != amount) continue;
 
+            // If transaction passes all filters, print it
             System.out.println(t);
         }
     }
