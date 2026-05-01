@@ -2,11 +2,9 @@ package com.pluralsight;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Scanner;
 
-import static com.pluralsight.LedgerScreen.ledgerScreen;
+import static com.pluralsight.LedgerScreen.ledgerScreen; //In case user select ledger screen
 import static com.pluralsight.Main.transactions;
 import static com.pluralsight.Main.scanner;
 
@@ -16,7 +14,7 @@ public class HomeScreen {
         while (true) {
 
             // Display menu options to user (UI)
-            System.out.println("\n==== LEDGER APP ====");
+            System.out.println("\n***** MENU *****");
             System.out.println("D) Add Deposit");
             System.out.println("P) Make Payment");
             System.out.println("L) Ledger");
@@ -25,7 +23,7 @@ public class HomeScreen {
             // Read user input and convert to uppercase//
             String option = scanner.nextLine().trim().toUpperCase();
 
-            System.out.print("Choose an option: ");
+            System.out.print("Select option: ");
             //user input option//
             //Decide what to do based on user input//
             switch (option) {
@@ -49,69 +47,55 @@ public class HomeScreen {
 
                             //ADD DEPOSIT//
 
-    public static void addDeposit() {
+    //Helper method -create transaction
+    public static Transaction createTransaction(Scanner scanner, boolean isDeposit) {
 
-        // Ask user for transaction details //
-        System.out.print("Date: ");
+        System.out.print("Enter date: ");
         String date = scanner.nextLine();
 
-        System.out.print("Time: ");
+        System.out.print("Enter time: ");
         String time = scanner.nextLine();
 
-        System.out.print("Description: ");
+        System.out.print("Enter description: ");
         String description = scanner.nextLine();
 
-        System.out.print("Vendor: ");
+        System.out.print("Enter vendor: ");
         String vendor = scanner.nextLine();
 
-        System.out.print("Amount: ");
-        double amount = Double.parseDouble(scanner.nextLine());
+        System.out.print("Enter amount: ");
+        double amount = Double.parseDouble(scanner.nextLine()); // convert input to number
 
-        // Ensure deposit is positive
-        if (amount < 0) amount = -amount;
+        // fix amount
+        if (isDeposit) {
+            amount = Math.abs(amount);
+        } else {
+            amount = -Math.abs(amount);
+        }
 
-        // Create new transaction object //
-        Transaction transaction = new Transaction(date, time, description, vendor, amount);
-
-        // Add to list //
-        transactions.add(transaction);
-
-        // save to file //
-        saveTransaction(transaction);
+        // Create a Transaction object using user input
+        // Return the created transaction back to the calling method
+        return new Transaction(date, time, description, vendor, amount);
     }
 
-                       // Make Payment //
+    public static void addDeposit() {
+
+        // Create a deposit transaction (true = deposit)
+        Transaction t = createTransaction(scanner, true);
+
+        transactions.add(t);  // Add transaction to the list in memory
+        saveTransaction(t);   // Save transaction to the file (CSV)
+    }
+
 
     public static void makePayment() {
 
-        // Same as deposit but amount must be negative //
-        System.out.print("Date: ");
-        String date = scanner.nextLine();
+        // Create a deposit transaction (false = deposit)
+        Transaction t = createTransaction(scanner, false);
 
-        System.out.print("Time: ");
-        String time = scanner.nextLine();
-
-        System.out.print("Description: ");
-        String description = scanner.nextLine();
-
-        System.out.print("Vendor: ");
-        String vendor = scanner.nextLine();
-
-        System.out.print("Amount: ");
-        double amount = Double.parseDouble(scanner.nextLine());
-
-        // Ensure payment is negative
-        if (amount > 0) amount = -amount;
-
-        //
-        Transaction transaction = new Transaction(date, time, description, vendor, amount);
-
-        //
-        transactions.add(transaction);
-
-        //
-        saveTransaction(transaction);
+        transactions.add(t); // Add transaction to the list in memory
+        saveTransaction(t);  // Save transaction to the file (CSV)
     }
+
 
                             //Save Transaction//
 

@@ -9,6 +9,7 @@ public class LedgerScreen {
     static Scanner scanner = new Scanner(System.in);
 
     public static void ledgerScreen() {
+        System.out.println("********** LEDGER *************");
         System.out.println("\nA) All");
         System.out.println("D) Deposits");
         System.out.println("P) Payments");
@@ -39,13 +40,21 @@ public class LedgerScreen {
                     //DISPLAY METHODS//
 
     public static void displayAll() {
+        // All entries should show newest entries first
+        // loop goes through the list backwards so the newest transactions appear first in the ledger
         for (int i = transactions.size() - 1; i >= 0; i--) {
             System.out.println(transactions.get(i));
         }
     }
 
     public static void displayDeposits() {
+
+        // Start from last index in the list
+        // Continue until we reach the FIRST item
+        // Move backwards (decrease index by 1 each time)
         for (int i = transactions.size() - 1; i >= 0; i--) {
+
+            // Get transaction at current index
             if (transactions.get(i).getAmount() > 0) {
                 System.out.println(transactions.get(i));
             }
@@ -53,7 +62,10 @@ public class LedgerScreen {
     }
 
     public static void displayPayments() {
-        for (int i = transactions.size() - 1; i >= 0; i--) {
+
+        for (int i = transactions.size() - 1; i >= 0; i--) { // loop goes through the list backwards so the newest transactions appear first in the ledger
+
+            // Get transaction at current index
             if (transactions.get(i).getAmount() < 0) {
                 System.out.println(transactions.get(i));
             }

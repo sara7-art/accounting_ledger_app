@@ -10,7 +10,7 @@ public class ReportsScreen {
     public static void reportsScreen() {
         while (true) {
             System.out.println();
-            System.out.println("\n==== REPORTS ====");
+            System.out.println("\n***** REPORTS *****");
             System.out.println("1) Month To Date");
             System.out.println("2) Previous Month");
             System.out.println("3) Year To Date");
@@ -105,9 +105,13 @@ public class ReportsScreen {
     ////////////////////////////////CUSTOM SEARCH//////////////////////////////////////////////////////
     public static void customSearch () {
 
+        // Ask user for a start date filter (they can leave it blank)
+        // This is used to search transactions starting from a specific date
         System.out.print("Start Date (yyyy-mm-dd) or blank: ");
         String startInput = scanner.nextLine();
 
+        // Ask user for an end date filter (optional)
+        // This is used to search transactions up to a specific date
         System.out.print("End Date (yyyy-mm-dd) or blank: ");
         String endInput = scanner.nextLine();
 
@@ -120,13 +124,25 @@ public class ReportsScreen {
         System.out.print("Amount or blank: ");
         String amountInput = scanner.nextLine();
 
+        // Convert start date string into a LocalDate object
+        // If user left it blank, we store null (meaning: no filter)
         LocalDate startDate = startInput.isEmpty() ? null : LocalDate.parse(startInput);
+
+        // Convert end date string into a LocalDate object
+        // If blank -> no end date filter
         LocalDate endDate = endInput.isEmpty() ? null : LocalDate.parse(endInput);
+
+        // Convert amount string into a Double
+        // If blank -> no amount filter
         Double amount = amountInput.isEmpty() ? null : Double.parseDouble(amountInput);
 
+        // Loop through all transactions stored in the system
         for (Transaction t : transactions) {
 
+            // Convert transaction date (stored as String) into LocalDate
             LocalDate date = LocalDate.parse(t.getDate());
+
+            // If start date exists and transaction is before it -> skip this transaction
 
             if (startDate != null && date.isBefore(startDate)) continue;
             if (endDate != null && date.isAfter(endDate)) continue;

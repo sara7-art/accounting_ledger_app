@@ -1,5 +1,7 @@
 package com.pluralsight;
-//Data field//
+
+   // DATA FIELDS //
+
 public class Transaction {
     private String date;
     private String time;
@@ -7,7 +9,7 @@ public class Transaction {
     private String vendor;
     private double amount;
 
-    //constructor
+    // CONSTRUCTOR //
     public Transaction(String date, String time, String description, String vendor, double amount) {
         this.date = date;
         this.time = time;
@@ -16,7 +18,8 @@ public class Transaction {
         this.amount = amount;
     }
 
-    //Getters & Setters
+    // GETTERS & SETTERS //
+
     public String getDate() {
         return date;
     }
@@ -57,9 +60,11 @@ public class Transaction {
         this.amount = amount;
     }
 
+    @Override
     public String toString() {
         return date + "|" + time + "|" + description + "|" + vendor + "|" + amount;
     }
 }
+
 
 
