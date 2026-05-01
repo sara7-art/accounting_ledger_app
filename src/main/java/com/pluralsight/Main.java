@@ -12,7 +12,8 @@ import static com.pluralsight.ReportsScreen.reportsScreen;
 public class Main {
 
     // This list stores all transactions loaded from the CSV file //
-    static ArrayList<Transaction> transactions = new ArrayList<>();
+    public static ArrayList<Transaction> transactions = new ArrayList<>();
+
 
     // Scanner is used to get user input from the keyboard //
     static Scanner scanner = new Scanner(System.in);
@@ -52,7 +53,10 @@ public class Main {
                 String vendor = parts[3];
                 double amount = Double.parseDouble(parts[4]); //  // amount (convert String -> double)// //
 
+                //creating a Transaction object
                 Transaction transaction = new Transaction(date, time, description, vendor, amount);
+
+                // save it into the list of transactions
                 transactions.add(transaction);
 
             }

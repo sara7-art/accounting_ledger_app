@@ -1,8 +1,7 @@
 package com.pluralsight;
-
+import static com.pluralsight.Main.*;
 import java.time.LocalDate;
 import java.util.Scanner;
-import static com.pluralsight.Main.transactions;
 
 public class ReportsScreen {
     static Scanner scanner = new Scanner(System.in);
