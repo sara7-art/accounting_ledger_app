@@ -47,49 +47,119 @@ public class ReportsScreen {
         }
     }
 
-    public static void monthToDate(){
+    public static void monthToDate() {
+
+        // Get today's date from the system (computer clock)
         LocalDate now = LocalDate.now();
+
+        System.out.println("\n--- MONTH TO DATE ---");
+
+        boolean found = false; // used to detect if we printed anything
+
+        // Loop through ALL transactions in the program
         for (Transaction t : Main.transactions) {
+
+            // Convert the date string from CSV into a real LocalDate object
             LocalDate date = LocalDate.parse(t.getDate());
 
-            if (date.getMonth() == now.getMonth() && date.getYear() == now.getYear()) {
-                System.out.println(t);
+            // Check if transaction is:
+            // 1. NOT in the future
+            // 2. same month as today
+            // 3. same year as today
+            if (!date.isAfter(now)
+                    && date.getMonth() == now.getMonth()
+                    && date.getYear() == now.getYear()) {
+
+                System.out.println(t); // print matching transaction
+                found = true;
             }
+        }
+
+
+    // If nothing matched, show message instead of “silent failure”
+        if (!found) {
+            System.out.println("No transactions found for this month.");
         }
     }
 
     public static void previousMonth() {
 
-        LocalDate now = LocalDate.now().minusMonths(1);
+    // Get the previous month based on today's date
+    LocalDate target = LocalDate.now().minusMonths(1);
 
-        for (Transaction t : Main.transactions) {
-            LocalDate date = LocalDate.parse(t.getDate());
+    System.out.println("\n--- PREVIOUS MONTH ---");
 
-            if (date.getMonth() == now.getMonth() && date.getYear() == now.getYear()) {
-                System.out.println(t);
-            }
+    boolean found = false;
+
+    for (Transaction t : Main.transactions) {
+
+        LocalDate date = LocalDate.parse(t.getDate());
+
+        // Compare ONLY month + year (important for previous month)
+        if (date.getMonth() == target.getMonth()
+                && date.getYear() == target.getYear()) {
+
+            System.out.println(t);
+            found = true;
         }
     }
-    public static void yearToDate () {
-        int year = LocalDate.now().getYear();
-        for (Transaction t : Main.transactions) {
-            LocalDate date = LocalDate.parse(t.getDate());
 
-            if (date.getYear() == year) {
-                System.out.println(t);
-            }
+    if (!found) {
+        System.out.println("No transactions found for previous month.");
+    }
+}
+
+public static void yearToDate() {
+
+    // Get current year (example: 2026)
+    int year = LocalDate.now().getYear();
+
+    System.out.println("\n--- YEAR TO DATE ---");
+
+    boolean found = false;
+
+    for (Transaction t : Main.transactions) {
+
+        LocalDate date = LocalDate.parse(t.getDate());
+
+        // Include everything from this year (Jan 1 → today)
+        if (date.getYear() == year) {
+
+            System.out.println(t);
+            found = true;
         }
     }
-    public static void previousYear() {
-        int year = LocalDate.now().minusYears(1).getYear();
-        for (Transaction t : Main.transactions) {
-            LocalDate date = LocalDate.parse(t.getDate());
 
-            if (date.getYear() == year) {
-                System.out.println(t);
-            }
+    if (!found) {
+        System.out.println("No transactions found for this year.");
+    }
+}
+public static void previousYear() {
+
+    // Get last year (example: 2025 if current is 2026)
+    int year = LocalDate.now().minusYears(1).getYear();
+
+    System.out.println("\n--- PREVIOUS YEAR ---");
+
+    boolean found = false;
+
+    for (Transaction t : Main.transactions) {
+
+        LocalDate date = LocalDate.parse(t.getDate());
+
+        // Only transactions from previous year
+        if (date.getYear() == year) {
+
+            System.out.println(t);
+            found = true;
         }
     }
+
+    if (!found) {
+        System.out.println("No transactions found for previous year.");
+    }
+}
+
     public static void searchByVendor () {
         System.out.print("Enter vendor name: ");
         String input = scanner.nextLine().toLowerCase();
